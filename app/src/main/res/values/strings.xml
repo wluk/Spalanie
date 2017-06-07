@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Spalanie</string>
+    <string name="welcome">Witaj!</string>
+
+    <!-- Strings related to add new -->
+    <string name="sub_billing">Stan podlicznika:</string>
+    <string name="liters">Litry paliwa:</string>
+    <string name="price">Cena za litr:</string>
+    <string name="combustion">Spalanie wg komputera:</string>
+    <string name="avg_seppd">Srednia prętkść wg komputera:</string>
+    <string name="add">Dodaj</string>
+    <string name="petrol_station">Stacja paliw:</string>
+    <string name="station">stacja</string>
+
+    <!-- Strings related to login -->
+    <string name="title_activity_login">title_activity_login</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_add">AddActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+</resources>
