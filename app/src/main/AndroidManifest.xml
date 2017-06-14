@@ -29,6 +29,13 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AddActivity" />
+        <activity
+            android:name=".TestActivity"
+            android:label="@string/title_activity_test" />
+        <activity
+            android:name=".SingleRefuleActivity"
+            android:label="@string/title_activity_single_refule"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

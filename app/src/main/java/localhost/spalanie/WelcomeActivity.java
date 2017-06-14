@@ -18,7 +18,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent addRefule = new Intent();
-                addRefule.setClass(WelcomeActivity.this, AddActivity.class);
+                addRefule.setClass(WelcomeActivity.this, MainActivity.class);
                 startActivity(addRefule);
             }
         }, 2500); // 5000ms delay
