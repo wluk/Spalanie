@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.io.Serializable;
 import java.util.Date;
 
 public class AddActivity extends AppCompatActivity {
@@ -49,14 +48,15 @@ public class AddActivity extends AppCompatActivity {
         refule.price = Double.valueOf(valuePrice.getText().toString());
 
         EditText valueCombustion = (EditText) findViewById(R.id.editCombustion);
-        refule.combustion = Double.valueOf(valueCombustion.getText().toString());
+        refule.combustionPC = Double.valueOf(valueCombustion.getText().toString());
 
         EditText valueAvgSpeed = (EditText) findViewById(R.id.editAvgSpeed);
-        refule.avg_seppd = Integer.valueOf(valueAvgSpeed.getText().toString());
+        refule.avg_speed = Integer.valueOf(valueAvgSpeed.getText().toString());
 
         EditText valuePetrolStation = (EditText) findViewById(R.id.editPetrolStation);
         refule.petrolStation = valuePetrolStation.getText().toString();
 
+        refule.combustion = Math.round(((refule.liters / (double) refule.subBilling) * 100) * 100.0) / 100.0;
         refule.date = new Date();
 
         return refule;

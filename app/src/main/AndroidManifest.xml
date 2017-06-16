@@ -35,6 +35,10 @@
         <activity
             android:name=".SingleRefuleActivity"
             android:label="@string/title_activity_single_refule"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Test2Activity"
+            android:label="@string/title_activity_test2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

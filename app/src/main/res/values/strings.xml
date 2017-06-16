@@ -6,7 +6,8 @@
     <string name="sub_billing">Stan podlicznika:</string>
     <string name="liters">Litry paliwa:</string>
     <string name="price">Cena za litr:</string>
-    <string name="combustion">Spalanie wg komputera:</string>
+    <string name="combustion">Spalanie:</string>
+    <string name="combustionPC">Spalanie wg komputera:</string>
     <string name="avg_seppd">Srednia prętkść wg komputera:</string>
     <string name="add">Dodaj</string>
     <string name="petrol_station">Stacja paliw:</string>
@@ -36,4 +37,6 @@
     <string name="title_activity_single_refule">SingleRefuleActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_test2">Test2Activity</string>
+    <string name="max_combustion">Spalanie maksymalne</string>
 </resources>

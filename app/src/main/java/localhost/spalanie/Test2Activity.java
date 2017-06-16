@@ -1,5 +1,7 @@
 package localhost.spalanie;
 
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -13,21 +15,30 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.TextView;
-import java.text.SimpleDateFormat;
 
-public class SingleRefuleActivity extends AppCompatActivity {
+public class Test2Activity extends AppCompatActivity {
 
+    /**
+     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * fragments for each of the sections. We use a
+     * {@link FragmentPagerAdapter} derivative, which will keep every
+     * loaded fragment in memory. If this becomes too memory intensive, it
+     * may be best to switch to a
+     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    public static Refule refule = null;
 
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
     private ViewPager mViewPager;
-    private Globals global;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_refule);
+        setContentView(R.layout.activity_test2);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,13 +49,26 @@ public class SingleRefuleActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        int cel = 4;
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_single_refule, menu);
+        getMenuInflater().inflate(R.menu.menu_test2, menu);
         return true;
     }
 
@@ -72,10 +96,8 @@ public class SingleRefuleActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private final Globals global;
 
         public PlaceholderFragment() {
-            global = Globals.getInstance();
         }
 
         /**
@@ -85,41 +107,17 @@ public class SingleRefuleActivity extends AppCompatActivity {
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
-            args.putInt("position", sectionNumber);
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            SingleRefuleActivity singleRefuleActivity = (SingleRefuleActivity) getActivity();
-
-            View rootView = inflater.inflate(R.layout.fragment_single_refule, container, false);
-
-            TextView data = (TextView) rootView.findViewById(R.id.tvDate);
-            TextView kilometry = (TextView) rootView.findViewById(R.id.tvSubBilling);
-            TextView litry = (TextView) rootView.findViewById(R.id.tvLiters);
-            TextView spalanie = (TextView) rootView.findViewById(R.id.tvCombustion);
-            TextView spalaniePC = (TextView) rootView.findViewById(R.id.tvCombustionPC);
-            TextView cena = (TextView) rootView.findViewById(R.id.tvPrice);
-            TextView predkosc = (TextView) rootView.findViewById(R.id.tvavgSpeed);
-            TextView stacja = (TextView) rootView.findViewById(R.id.tvStation);
-
-            Bundle bundle = getArguments();
-            Integer pozycja = bundle.getInt("position");
-            Refule refule = global.getRefuleByPosition(pozycja);
-
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            String formatDate = formatter.format(refule.date);
-            data.setText(formatDate);
-            kilometry.setText(refule.subBilling.toString());
-            litry.setText(refule.liters.toString());
-            spalanie.setText(refule.combustion.toString());
-            spalaniePC.setText(refule.combustionPC.toString());
-            cena.setText(refule.price.toString());
-            predkosc.setText(refule.avg_speed.toString());
-            stacja.setText(refule.petrolStation);
-
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_test2, container, false);
+            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }
@@ -131,9 +129,7 @@ public class SingleRefuleActivity extends AppCompatActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
-
             super(fm);
-            global = Globals.getInstance();
         }
 
         @Override
@@ -145,7 +141,8 @@ public class SingleRefuleActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return global.getRefuleCount();
+            // Show 3 total pages.
+            return 5;
         }
 
         @Override

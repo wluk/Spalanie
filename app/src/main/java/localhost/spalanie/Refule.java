@@ -13,6 +13,7 @@ class Refule implements Serializable {
     public Integer liters;
     public Double price;
     public Double combustion;
-    public Integer avg_seppd;
+    public Double combustionPC;
+    public Integer avg_speed;
     public Date date;
 }

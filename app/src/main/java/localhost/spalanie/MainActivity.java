@@ -47,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Refule refule = (Refule) getIntent().getSerializableExtra("refule");
-        global.addData(refule);
+        if (refule != null) {
+            global.addData(refule);
+        }
 
         final ArrayList<Refule> list = new ArrayList<Refule>();
         for (Refule item : global.getData()) {
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Refule model = (Refule)adapter.getItem(position);
+                Refule model = (Refule) adapter.getItem(position);
 
                 goToSingleRefuleActivity(model);
             }
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToAddRefule() {
         Intent addActivity = new Intent();
-        addActivity.setClass(this, AddActivity.class);
+        addActivity.setClass(this, Test2Activity.class);
 
         startActivity(addActivity);
     }

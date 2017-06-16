@@ -18,10 +18,10 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent addRefule = new Intent();
-                addRefule.setClass(WelcomeActivity.this, MainActivity.class);
+                addRefule.setClass(WelcomeActivity.this, TestActivity.class);
                 startActivity(addRefule);
             }
-        }, 2500); // 5000ms delay
+        }, 1000); // 5000ms delay
 
 //        Handler h = new Handler();
 //        h.postDelayed(new Runnable() {
