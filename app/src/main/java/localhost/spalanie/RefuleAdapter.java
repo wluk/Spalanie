@@ -56,13 +56,13 @@ public class RefuleAdapter extends BaseAdapter {
         // 1
         Refule singleRefule = (Refule) getItem(position);
         // 2
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        String format = formatter.format(singleRefule.date);
-        DateRefuleText.setText(format);
+        //SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        //String format = formatter.format(singleRefule.getDate());
+        DateRefuleText.setText(singleRefule.getId().toString());
 
-        LitersRefuleText.setText(singleRefule.subBilling.toString());
+        LitersRefuleText.setText(singleRefule.getSubBilling().toString());
 
-        CombustionRefuleText.setText(singleRefule.combustion.toString());
+        CombustionRefuleText.setText(singleRefule.getCombustion().toString());
 
         if ((position % 2) == 0) {
             IconTank.setImageResource(R.drawable.refule_blue);

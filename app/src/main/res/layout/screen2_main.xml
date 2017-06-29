@@ -23,18 +23,18 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tvAVGCombunius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Spalanie: "/>
+
+        <TextView
             android:id="@+id/tvAVGPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cena: " />
-
-        <TextView
-            android:id="@+id/tvAVGCombunius"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Spalanie: " />
 
         <TextView
             android:id="@+id/tvAVGKIlometers"

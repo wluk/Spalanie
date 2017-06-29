@@ -12,6 +12,9 @@
     <string name="add">Dodaj</string>
     <string name="petrol_station">Stacja paliw:</string>
     <string name="station">stacja</string>
+    <string name="kilometers">Kilometry:</string>
+    <string name="combustionPerKilometers">l/100km</string>
+    <string name="currency">zł</string>
 
     <!-- Strings related to login -->
     <string name="title_activity_login">title_activity_login</string>

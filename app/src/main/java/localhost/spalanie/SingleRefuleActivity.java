@@ -110,15 +110,15 @@ public class SingleRefuleActivity extends AppCompatActivity {
             Refule refule = global.getRefuleByPosition(pozycja);
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            String formatDate = formatter.format(refule.date);
+            String formatDate = formatter.format(refule.getDate());
             data.setText(formatDate);
-            kilometry.setText(refule.subBilling.toString());
-            litry.setText(refule.liters.toString());
-            spalanie.setText(refule.combustion.toString());
-            spalaniePC.setText(refule.combustionPC.toString());
-            cena.setText(refule.price.toString());
-            predkosc.setText(refule.avg_speed.toString());
-            stacja.setText(refule.petrolStation);
+            kilometry.setText(refule.getSubBilling().toString());
+            litry.setText(refule.getLiters().toString());
+            spalanie.setText(refule.getCombustion().toString());
+            spalaniePC.setText(refule.getCombustionPC().toString());
+            cena.setText(refule.getPrice().toString());
+            predkosc.setText(refule.getAvg_speed().toString());
+            stacja.setText(refule.getPetrolStation());
 
             return rootView;
         }

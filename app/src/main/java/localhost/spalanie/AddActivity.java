@@ -20,7 +20,12 @@ public class AddActivity extends AppCompatActivity {
         addRefule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Globals global = Globals.getInstance();
+
                 Refule refule = getRefuleData(view);
+
+                refule.setId(global.getRefuleCount() + 1);
+                global.addData(refule);
                 goToMainActivity(refule);
             }
         });
@@ -39,25 +44,25 @@ public class AddActivity extends AppCompatActivity {
         Refule refule = new Refule();
 
         EditText valueSubBilling = (EditText) findViewById(R.id.editSub_billing);
-        refule.subBilling = Integer.valueOf(valueSubBilling.getText().toString());
+        refule.setSubBilling(Double.valueOf(valueSubBilling.getText().toString()));
 
         EditText valueLiters = (EditText) findViewById(R.id.editLiters);
-        refule.liters = Integer.valueOf(valueLiters.getText().toString());
+        refule.setLiters(Double.valueOf(valueLiters.getText().toString()));
 
         EditText valuePrice = (EditText) findViewById(R.id.editPrice);
-        refule.price = Double.valueOf(valuePrice.getText().toString());
+        refule.setPrice(Double.valueOf(valuePrice.getText().toString()));
 
         EditText valueCombustion = (EditText) findViewById(R.id.editCombustion);
-        refule.combustionPC = Double.valueOf(valueCombustion.getText().toString());
+        refule.setCombustionPC(Double.valueOf(valueCombustion.getText().toString()));
 
         EditText valueAvgSpeed = (EditText) findViewById(R.id.editAvgSpeed);
-        refule.avg_speed = Integer.valueOf(valueAvgSpeed.getText().toString());
+        refule.setAvg_speed(Integer.valueOf(valueAvgSpeed.getText().toString()));
 
         EditText valuePetrolStation = (EditText) findViewById(R.id.editPetrolStation);
-        refule.petrolStation = valuePetrolStation.getText().toString();
+        refule.setPetrolStation(valuePetrolStation.getText().toString());
 
-        refule.combustion = Math.round(((refule.liters / (double) refule.subBilling) * 100) * 100.0) / 100.0;
-        refule.date = new Date();
+        refule.setCombustion(Math.round(((refule.getLiters() / (double) refule.getSubBilling()) * 100) * 100.0) / 100.0);
+        refule.setDate(new Date());
 
         return refule;
     }
@@ -65,12 +70,7 @@ public class AddActivity extends AppCompatActivity {
     public void goToMainActivity(Refule refuleData) {
         Intent mainActivity = new Intent();
         mainActivity.setClass(this, MainActivity.class);
-        mainActivity.putExtra("refule", refuleData);
 
         startActivity(mainActivity);
-    }
-
-    public void enter(View v) {
-        ((Button) v).setText("test");
     }
 }
