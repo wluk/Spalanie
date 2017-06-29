@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/editSub_billing"
@@ -16,59 +16,59 @@
         android:ems="10"
         android:inputType="number"
         android:text="555"
-        android:textSize="14sp" />
+        android:textSize="14sp"/>
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="23dp"
         android:layout_marginStart="23dp"
         android:layout_marginTop="46dp"
-        android:text="@string/sub_billing"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="@string/sub_billing"/>
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/liters"
         android:layout_alignBaseline="@+id/editLiters"
         android:layout_alignBottom="@+id/editLiters"
         android:layout_alignLeft="@+id/textView8"
-        android:layout_alignStart="@+id/textView8" />
+        android:layout_alignStart="@+id/textView8"
+        android:text="@string/liters"/>
 
     <TextView
         android:id="@+id/textPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/price"
         android:layout_alignBaseline="@+id/editPrice"
         android:layout_alignBottom="@+id/editPrice"
+        android:layout_alignEnd="@+id/textView9"
         android:layout_alignRight="@+id/textView9"
-        android:layout_alignEnd="@+id/textView9" />
+        android:text="@string/price"/>
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:width="100dp"
-        android:text="@string/combustion"
-        android:layout_below="@+id/editPrice"
         android:layout_alignLeft="@+id/textView9"
-        android:layout_alignStart="@+id/textView9" />
+        android:layout_alignStart="@+id/textView9"
+        android:layout_below="@+id/editPrice"
+        android:width="100dp"
+        android:text="@string/combustion"/>
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:width="100dp"
-        android:text="@string/avg_seppd"
-        android:layout_below="@+id/editCombustion"
         android:layout_alignLeft="@+id/textPrice"
-        android:layout_alignStart="@+id/textPrice" />
+        android:layout_alignStart="@+id/textPrice"
+        android:layout_below="@+id/editCombustion"
+        android:width="100dp"
+        android:text="@string/avg_seppd"/>
 
     <EditText
         android:id="@+id/editPrice"
@@ -81,7 +81,7 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:text="4.51"
-        android:textSize="14sp" />
+        android:textSize="14sp"/>
 
     <EditText
         android:id="@+id/editPetrolStation"
@@ -95,7 +95,7 @@
         android:inputType="text"
         android:text="BP BB Żywiecka"
         android:textSize="14sp"
-        tools:text="@string/station" />
+        tools:text="@string/station"/>
 
     <EditText
         android:id="@+id/editAvgSpeed"
@@ -108,7 +108,7 @@
         android:ems="10"
         android:inputType="number"
         android:text="39"
-        android:textSize="14sp" />
+        android:textSize="14sp"/>
 
     <EditText
         android:id="@+id/editCombustion"
@@ -121,7 +121,7 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:text="7.8"
-        android:textSize="14sp" />
+        android:textSize="14sp"/>
 
     <EditText
         android:id="@+id/editLiters"
@@ -134,30 +134,30 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:text="43"
-        android:textSize="14sp" />
+        android:textSize="14sp"/>
 
     <Button
         android:id="@+id/btnAdd"
         style="@android:style/Widget.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="34dp"
         android:layout_marginEnd="22dp"
         android:layout_marginRight="22dp"
         android:onClick="btnClick"
-        android:text="@string/add"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:text="@string/add"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/petrol_station"
         android:layout_alignBaseline="@+id/editPetrolStation"
         android:layout_alignBottom="@+id/editPetrolStation"
         android:layout_alignLeft="@+id/textPrice"
-        android:layout_alignStart="@+id/textPrice" />
+        android:layout_alignStart="@+id/textPrice"
+        android:text="@string/petrol_station"/>
 
 </RelativeLayout>

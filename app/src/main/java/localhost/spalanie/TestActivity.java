@@ -1,6 +1,5 @@
 package localhost.spalanie;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,9 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,9 +41,9 @@ public class TestActivity extends AppCompatActivity {
     private LinearLayout statsVP;
     private RelativeLayout addRefuleViwe;
     private ConstraintLayout refuleView;
-    private ArrayList<Refule> list;
+    private ArrayList<Refuel> list;
     private ListView listRefule;
-    private RefuleAdapter adapter;
+    private RefuelAdapter adapter;
 
     private Cursor todoCursor;
 
@@ -109,47 +105,40 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Refule model = (Refule) adapter.getItem(position);
+                Refuel model = (Refuel) adapter.getItem(position);
 
                 goToSingleRefuleActivity(model);
             }
         });
     }
 
-    private void goTOHomePage(){
+    private void goTOHomePage() {
         avgVP.setVisibility(View.GONE);
         statsVP.setVisibility(View.GONE);
         addRefuleViwe.setVisibility(View.GONE);
         refuleView.setVisibility(View.VISIBLE);
     }
 
-    private void refreshRefules(){
-        list = new ArrayList<Refule>();
-        for (Refule item : global.getData()) {
+    private void refreshRefules() {
+        list = new ArrayList<Refuel>();
+        for (Refuel item : global.getData()) {
             list.add(item);
         }
         Collections.reverse(list);
         listRefule = (ListView) findViewById(R.id.list);
-        adapter = new RefuleAdapter(this, list);
+        adapter = new RefuelAdapter(this, list);
         listRefule.setAdapter(adapter);
-    }
-
-    private void goToAddRefule() {
-        Intent addActivity = new Intent();
-        addActivity.setClass(this, AddActivity.class);
-
-        startActivity(addActivity);
     }
 
     private void wykres() {
         // Line Graph
-        List<Refule> refules = global.getData();
+        List<Refuel> refuels = global.getData();
 
         GraphView line_graph = (GraphView) findViewById(R.id.graph);
 
         int iterator = 0;
         ArrayList<DataPoint> prices = new ArrayList<>();
-        for (Refule item : refules) {
+        for (Refuel item : refuels) {
             DataPoint newest = new DataPoint(iterator, item.getPrice());
             prices.add(newest);
             iterator++;
@@ -202,11 +191,11 @@ public class TestActivity extends AppCompatActivity {
         refuleView = (ConstraintLayout) findViewById(R.id.refuleView);
     }
 
-    private void goToSingleRefuleActivity(Refule refule) {
+    private void goToSingleRefuleActivity(Refuel refuel) {
         Intent singleRefuleActivity = new Intent();
-        singleRefuleActivity.setClass(this, SingleRefuleActivity.class);
+        singleRefuleActivity.setClass(this, SingleRefuelActivity.class);
 
-        singleRefuleActivity.putExtra("refule", refule);
+        singleRefuleActivity.putExtra("refuel", refuel);
 
         startActivity(singleRefuleActivity);
     }
@@ -223,33 +212,33 @@ public class TestActivity extends AppCompatActivity {
         });
     }
 
-    private Refule getRefuleData(View v) {
-        Refule refule = new Refule();
+    private Refuel getRefuleData(View v) {
+        Refuel refuel = new Refuel();
 
         EditText valueSubBilling = (EditText) findViewById(R.id.editSub_billing);
-        refule.setSubBilling(Double.valueOf(valueSubBilling.getText().toString()));
+        refuel.setSubBilling(Double.valueOf(valueSubBilling.getText().toString()));
 
         EditText valueLiters = (EditText) findViewById(R.id.editLiters);
-        refule.setLiters(Double.valueOf(valueLiters.getText().toString()));
+        refuel.setLiters(Double.valueOf(valueLiters.getText().toString()));
 
         EditText valuePrice = (EditText) findViewById(R.id.editPrice);
-        refule.setPrice(Double.valueOf(valuePrice.getText().toString()));
+        refuel.setPrice(Double.valueOf(valuePrice.getText().toString()));
 
         EditText valueCombustion = (EditText) findViewById(R.id.editCombustion);
-        refule.setCombustionPC(Double.valueOf(valueCombustion.getText().toString()));
+        refuel.setCombustionPC(Double.valueOf(valueCombustion.getText().toString()));
 
         EditText valueAvgSpeed = (EditText) findViewById(R.id.editAvgSpeed);
-        refule.setAvg_speed(Integer.valueOf(valueAvgSpeed.getText().toString()));
+        refuel.setAvg_speed(Integer.valueOf(valueAvgSpeed.getText().toString()));
 
         EditText valuePetrolStation = (EditText) findViewById(R.id.editPetrolStation);
-        refule.setPetrolStation(valuePetrolStation.getText().toString());
+        refuel.setPetrolStation(valuePetrolStation.getText().toString());
 
-        refule.setCombustion(Math.round(((refule.getLiters() / (double) refule.getSubBilling()) * 100) * 100.0) / 100.0);
-        refule.setDate(new Date());
+        refuel.setCombustion(Math.round(((refuel.getLiters() / (double) refuel.getSubBilling()) * 100) * 100.0) / 100.0);
+        refuel.setDate(new Date());
 
-        refule.setId(global.getRefuleCount() + 1);
+        refuel.setId(global.getRefuelCount() + 1);
 
-        return refule;
+        return refuel;
     }
 
     private void goToMainActivity() {
@@ -265,33 +254,33 @@ public class TestActivity extends AppCompatActivity {
         try {
             SQLiteDatabase dbRead = dbHelper.getReadableDatabase();
             dbHelper.onUpgrade(dbRead, 3, 4);
-            Cursor c = dbRead.query(RefuleTable.TABLE_NAME, new String[]{RefuleTable.ID, RefuleTable.DATE, RefuleTable.STATION, RefuleTable.SUB_BILLING, RefuleTable.LITERS, RefuleTable.PRICE, RefuleTable.COMBUSTION, RefuleTable.COMBUSTION_CAR, RefuleTable.AVG_SPEED, RefuleTable.COMMENT}, null, null, null, null, null, null);
+            Cursor c = dbRead.query(RefuelTable.TABLE_NAME, new String[]{RefuelTable.ID, RefuelTable.DATE, RefuelTable.STATION, RefuelTable.SUB_BILLING, RefuelTable.LITERS, RefuelTable.PRICE, RefuelTable.COMBUSTION, RefuelTable.COMBUSTION_CAR, RefuelTable.AVG_SPEED, RefuelTable.COMMENT}, null, null, null, null, null, null);
 
-            ArrayList<Refule> refules = new ArrayList<Refule>();
+            ArrayList<Refuel> refuels = new ArrayList<Refuel>();
 
             try {
                 while (c.moveToNext()) {
-                    Refule tmpRefule = new Refule();
-                    tmpRefule.setId(Integer.parseInt(c.getString(0)));
+                    Refuel tmpRefuel = new Refuel();
+                    tmpRefuel.setId(Integer.parseInt(c.getString(0)));
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                     Date date = dateFormat.parse(c.getString(1));
-                    tmpRefule.setDate(date);
-                    tmpRefule.setPetrolStation(c.getString(2));
-                    tmpRefule.setSubBilling(Double.parseDouble(c.getString(3)));
-                    tmpRefule.setLiters(Double.parseDouble(c.getString(4)));
-                    tmpRefule.setPrice(Double.parseDouble(c.getString(5)));
-                    tmpRefule.setCombustion(Double.parseDouble(c.getString(6)));
-                    tmpRefule.setCombustionPC(Double.parseDouble(c.getString(7)));
-                    tmpRefule.setAvg_speed(Integer.parseInt(c.getString(8)));
-                    tmpRefule.setComment(c.getString(9));
+                    tmpRefuel.setDate(date);
+                    tmpRefuel.setPetrolStation(c.getString(2));
+                    tmpRefuel.setSubBilling(Double.parseDouble(c.getString(3)));
+                    tmpRefuel.setLiters(Double.parseDouble(c.getString(4)));
+                    tmpRefuel.setPrice(Double.parseDouble(c.getString(5)));
+                    tmpRefuel.setCombustion(Double.parseDouble(c.getString(6)));
+                    tmpRefuel.setCombustionPC(Double.parseDouble(c.getString(7)));
+                    tmpRefuel.setAvg_speed(Integer.parseInt(c.getString(8)));
+                    tmpRefuel.setComment(c.getString(9));
 
-                    refules.add(tmpRefule);
+                    refuels.add(tmpRefuel);
                 }
             } catch (Exception e) {
                 System.out.print(e.toString());
             } finally {
                 c.close();
-                global.addRefules(refules);
+                global.addRefuels(refuels);
             }
 
         } catch (SQLiteException ex) {

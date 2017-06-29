@@ -1,15 +1,9 @@
 package localhost.spalanie;
 
-import android.os.Debug;
-
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by wluka on 06.06.2017.
- */
-
-class Refule implements Serializable {
+class Refuel implements Serializable {
     private String petrolStation;
     private Double subBilling;
     private Double liters;

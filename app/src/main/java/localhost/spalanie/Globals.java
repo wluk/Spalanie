@@ -1,60 +1,19 @@
 package localhost.spalanie;
 
-import java.sql.Ref;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by wluka on 08.06.2017.
- */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class Globals {
     private static Globals instance;
+    // Global variable
+    private final List<Refuel> refuels;
 
     private Globals() {
-
-        refules = new ArrayList<Refule>();
-
-//        Refule refule = new Refule();
-//        refule.subBilling = 580;
-//        refule.date = new Date();
-//        refule.petrolStation = "BP BB Dworzec";
-//        refule.avg_speed = 48;
-//        refule.combustion = 7.6;
-//        refule.liters = 44;
-//        refule.price = 4.44;
-//        refule.combustion = Math.round(((refule.liters / (double) refule.subBilling) * 100) * 100.0) / 100.0;
-//        refule.combustionPC = 4.8;
-//        refules.add(refule);
-//
-//        refule = new Refule();
-//        refule.subBilling = 600;
-//        refule.date = new Date();
-//        refule.petrolStation = "Shell Komorowice";
-//        refule.avg_speed = 47;
-//        refule.combustion = 7.4;
-//        refule.liters = 47;
-//        refule.price = 4.64;
-//        refule.combustion = Math.round(((refule.liters / (double) refule.subBilling) * 100) * 100.0) / 100.0;
-//        refule.combustionPC = 4.6;
-//        refules.add(refule);
-//
-//        refule = new Refule();
-//        refule.subBilling = 525;
-//        refule.date = new Date();
-//        refule.petrolStation = "Shell Tychy Ktw";
-//        refule.avg_speed = 39;
-//        refule.combustion = 8.2;
-//        refule.liters = 40;
-//        refule.price = 4.32;
-//        refule.combustion = Math.round(((refule.liters / (double) refule.subBilling) * 100) * 100.0) / 100.0;
-//        refule.combustionPC = 5.1;
-//        refules.add(refule);
+        refuels = new ArrayList<>();
     }
 
     public static synchronized Globals getInstance() {
@@ -64,34 +23,31 @@ public class Globals {
         return instance;
     }
 
-    // Global variable
-    private List<Refule> refules;
-
-    public List<Refule> getData() {
-        return this.refules;
+    public List<Refuel> getData() {
+        return this.refuels;
     }
 
-    public void addData(Refule refule) {
-        this.refules.add(refule);
+    public void addData(Refuel refuel) {
+        this.refuels.add(refuel);
 
-        Collections.sort(refules, new Comparator<Refule>() {
-            public int compare(Refule obj1, Refule obj2) {
+        Collections.sort(refuels, new Comparator<Refuel>() {
+            public int compare(Refuel obj1, Refuel obj2) {
                 // TODO Auto-generated method stub
                 return (obj1.getId() < obj2.getId()) ? -1 : (obj1.getId() > obj2.getId()) ? 1 : 0;
             }
         });
     }
 
-    public void addRefules(ArrayList<Refule> refuleArrayList) {
-        refules.addAll(refuleArrayList);
+    public void addRefuels(ArrayList<Refuel> refuelArrayList) {
+        refuels.addAll(refuelArrayList);
     }
 
-    public int getRefuleCount() {
-        return refules.size();
+    public int getRefuelCount() {
+        return refuels.size();
     }
 
-    public Refule getRefuleByPosition(int position) {
-        return refules.get(position);
+    public Refuel getRefuelByPosition(int position) {
+        return refuels.get(position);
     }
 
     //region Stats
@@ -100,11 +56,11 @@ public class Globals {
         double sum = 0, avgCombustion = 0;
 
         if (hasData()) {
-            for (Refule item : refules
+            for (Refuel item : refuels
                     ) {
                 sum += item.getCombustion();
             }
-            avgCombustion = Math.round(((sum / refules.size())) * 100.0) / 100.0;
+            avgCombustion = Math.round(((sum / refuels.size())) * 100.0) / 100.0;
         }
 
         return avgCombustion;
@@ -114,11 +70,11 @@ public class Globals {
         double sum = 0, avgPrice = 0;
 
         if (hasData()) {
-            for (Refule item : refules
+            for (Refuel item : refuels
                     ) {
                 sum += item.getPrice();
             }
-            avgPrice = Math.round(((sum / refules.size())) * 100.0) / 100.0;
+            avgPrice = Math.round(((sum / refuels.size())) * 100.0) / 100.0;
         }
 
         return avgPrice;
@@ -128,11 +84,11 @@ public class Globals {
         double sum = 0, avgSubBilling = 0;
 
         if (hasData()) {
-            for (Refule item : refules
+            for (Refuel item : refuels
                     ) {
                 sum += item.getSubBilling();
             }
-            avgSubBilling = Math.round(((sum / refules.size())) * 100.0) / 100.0;
+            avgSubBilling = Math.round(((sum / refuels.size())) * 100.0) / 100.0;
         }
 
         return avgSubBilling;
@@ -142,13 +98,13 @@ public class Globals {
         double sum = 0, avgKilometers = 0;
 
         if (hasData()) {
-            for (Refule item : refules
+            for (Refuel item : refuels
                     ) {
                 if (item.getLiters() >= 37) {
                     sum += item.getSubBilling();
                 }
             }
-            avgKilometers = Math.round(((sum / refules.size())) * 100.0) / 100.0;
+            avgKilometers = Math.round(((sum / refuels.size())) * 100.0) / 100.0;
         }
 
         return avgKilometers;
@@ -158,8 +114,8 @@ public class Globals {
         double maxCombustion = 0;
 
         if (hasData()) {
-            ArrayList<Double> combustionArrayList = new ArrayList<Double>();
-            for (Refule item : refules
+            ArrayList<Double> combustionArrayList = new ArrayList<>();
+            for (Refuel item : refuels
                     ) {
                 combustionArrayList.add(item.getCombustion());
             }
@@ -171,8 +127,8 @@ public class Globals {
     public double getMaxPrice() {
         double maxPrice = 0;
         if (hasData()) {
-            ArrayList<Double> priceArrayList = new ArrayList<Double>();
-            for (Refule item : refules
+            ArrayList<Double> priceArrayList = new ArrayList<>();
+            for (Refuel item : refuels
                     ) {
 
                 priceArrayList.add(item.getPrice());
@@ -185,8 +141,8 @@ public class Globals {
     public double getMaxKilometers() {
         double maxKilometers = 0;
         if (hasData()) {
-            ArrayList<Double> kilometersArrayList = new ArrayList<Double>();
-            for (Refule item : refules
+            ArrayList<Double> kilometersArrayList = new ArrayList<>();
+            for (Refuel item : refuels
                     ) {
                 kilometersArrayList.add(item.getSubBilling());
             }
@@ -198,8 +154,8 @@ public class Globals {
     public double getMinCombustion() {
         double minCombustion = 0;
         if (hasData()) {
-            ArrayList<Double> combustionArrayList = new ArrayList<Double>();
-            for (Refule item : refules
+            ArrayList<Double> combustionArrayList = new ArrayList<>();
+            for (Refuel item : refuels
                     ) {
                 if (item.getCombustion() > 0) {
                     combustionArrayList.add(item.getCombustion());
@@ -213,8 +169,8 @@ public class Globals {
     public double getMinPrice() {
         double minPrice = 0;
         if (hasData()) {
-            ArrayList<Double> priceArrayList = new ArrayList<Double>();
-            for (Refule item : refules
+            ArrayList<Double> priceArrayList = new ArrayList<>();
+            for (Refuel item : refuels
                     ) {
                 if (item.getPrice() > 0) {
                     priceArrayList.add(item.getPrice());
@@ -226,12 +182,7 @@ public class Globals {
     }
 
     private boolean hasData() {
-        return !refules.isEmpty();
+        return !refuels.isEmpty();
     }
-
-    private enum StatsData {
-        AvgCombustion, AvgPrice, AvgSubBilling, AvgKilometers, MaxCombustion, MaxPrice, MaxKilometers, MinCombustion, MinPrice
-    }
-
     //endregion
 }

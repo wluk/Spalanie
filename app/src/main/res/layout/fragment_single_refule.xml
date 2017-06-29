@@ -1,12 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="localhost.spalanie.SingleRefuleActivity$PlaceholderFragment">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                tools:context="localhost.spalanie.SingleRefuelActivity$PlaceholderFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,13 +26,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.00"
                 android:text="@string/date_refueling"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvDate"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"/>
 
         </LinearLayout>
 
@@ -49,13 +49,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/sub_billing"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvSubBilling"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"/>
 
         </LinearLayout>
 
@@ -72,13 +72,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.00"
                 android:text="@string/liters"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvLiters"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"/>
 
         </LinearLayout>
 
@@ -95,13 +95,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="@string/combustion"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvCombustion"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"/>
 
         </LinearLayout>
 
@@ -118,13 +118,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/combustionPC"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvCombustionPC"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"/>
 
         </LinearLayout>
 
@@ -141,13 +141,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/price"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"/>
 
         </LinearLayout>
 
@@ -164,13 +164,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/avg_seppd"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvavgSpeed"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"/>
 
         </LinearLayout>
 
@@ -187,13 +187,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/petrol_station"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvStation"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"/>
 
         </LinearLayout>
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="20dp"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingBottom="20dp"
+              android:paddingLeft="20dp"
+              android:paddingRight="20dp"
+              android:paddingTop="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Wartości średnie"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvAVGCombunius"
@@ -34,14 +34,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cena: " />
+            android:text="Cena: "/>
 
         <TextView
             android:id="@+id/tvAVGKIlometers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Kilometry: " />
+            android:text="Kilometry: "/>
 
     </LinearLayout>
 
@@ -57,21 +57,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Wartości minimalne"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvMinCombunious"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Spalanie: " />
+            android:text="Spalanie: "/>
 
         <TextView
             android:id="@+id/tvMinPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cena: " />
+            android:text="Cena: "/>
     </LinearLayout>
 
     <LinearLayout
@@ -86,28 +86,28 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Wartości maksymlne"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvMaxCombunius"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Spalanie: " />
+            android:text="Spalanie: "/>
 
         <TextView
             android:id="@+id/tvMaxPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cena: " />
+            android:text="Cena: "/>
 
         <TextView
             android:id="@+id/tvMaxKilometers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ilość kilometrów " />
+            android:text="Ilość kilometrów "/>
     </LinearLayout>
 
 </LinearLayout>
