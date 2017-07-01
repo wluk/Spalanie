@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TestActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_test">
             <intent-filter>
                 <action android:name=".TestActivity"/>
@@ -30,11 +30,11 @@
         <activity
             android:name=".SingleRefuelActivity"
             android:label="@string/title_activity_single_refule"
-            android:parentActivityName=".TestActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".TestActivity"/>
+                android:value=".MainActivity"/>
         </activity>
     </application>
 

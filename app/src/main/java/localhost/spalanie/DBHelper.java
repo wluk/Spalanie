@@ -6,37 +6,25 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+interface DBName {
+    String DATA_BASE_NAME = "CombustionDB.db";
+}
+
 class DBHelper extends SQLiteOpenHelper {
-    private static final String DATA_BASE_NAME = "CombustionDB.db";
     private static final int DATA_BASE_VER = 1;
-    private static boolean hasData = false;
 
     public DBHelper(Context context) {
-
-        super(context, DATA_BASE_NAME, null, DATA_BASE_VER);
-
-        if (isExistLocalCopy()) {
-            importFromCopy();
-            hasData = true;
-        } else {
-            hasData = false;
-        }
+        super(context, DBName.DATA_BASE_NAME, null, DATA_BASE_VER);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + RefuelTable.TABLE_NAME + "( " + RefuelTable.ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, " + RefuelTable.DATE + " TEXT, " + RefuelTable.STATION + " TEXT, " + RefuelTable.SUB_BILLING + " REAL, " + RefuelTable.LITERS + " REAL, " + RefuelTable.PRICE + " REAL, " + RefuelTable.COMBUSTION + " REAL, " + RefuelTable.COMBUSTION_CAR + " REAL, " + RefuelTable.AVG_SPEED + " REAL, " + RefuelTable.COMMENT + " TEXT );");
 
-        if (hasData) {
-            seedData(db);
-        }
+        seedData(db);
     }
 
     private void seedData(SQLiteDatabase db) {
@@ -79,43 +67,13 @@ class DBHelper extends SQLiteOpenHelper {
     public void addRefuel(SQLiteDatabase db, Refuel addedRefuel) {
         boolean isInserted = insertRefuel(db, addedRefuel);
         if (isInserted) {
-            File destination = Environment.getExternalStorageDirectory();
-            File source = Environment.getDataDirectory();
-            copyDbFile(source, destination);
+            FileHelper file = new FileHelper();
+            file.exportTOExternalStorage();
         }
     }
 
-    private boolean isExistLocalCopy() {
-        File sd = Environment.getExternalStorageDirectory();
-        String backupPath = DATA_BASE_NAME;
-        File backupDB = new File(sd, backupPath);
-
-        return backupDB.exists();
-    }
-
-    private void importFromCopy() {
-        File source = Environment.getExternalStorageDirectory();
-        File destination = Environment.getDataDirectory();
-        copyDbFile(source, destination);
-    }
-
-    private void copyDbFile(File source, File destination) {
-
-        FileChannel sourceChannel = null;
-        FileChannel destinationchaChannel = null;
-        String currentDBPath = "/data/" + "localhost.spalanie" + "/databases/" + DATA_BASE_NAME;
-        String backupPath = DATA_BASE_NAME;
-        File currentDB = new File(source, currentDBPath);
-        File backupDB = new File(destination, backupPath);
-        try {
-            sourceChannel = new FileInputStream(currentDB).getChannel();
-            destinationchaChannel = new FileOutputStream(backupDB).getChannel();
-            destinationchaChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
-            sourceChannel.close();
-            destinationchaChannel.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void dropDatabase(Context context){
+        context.deleteDatabase(DBName.DATA_BASE_NAME);
     }
 
     @Override

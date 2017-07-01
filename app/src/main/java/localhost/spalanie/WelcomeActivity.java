@@ -1,5 +1,6 @@
 package localhost.spalanie;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,6 +22,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        initDatabase();
         dbReadRefuel();
 
         Handler handler = new Handler();
@@ -29,15 +31,24 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent addRefuel = new Intent();
-                addRefuel.setClass(WelcomeActivity.this, TestActivity.class);
+                addRefuel.setClass(WelcomeActivity.this, MainActivity.class);
                 startActivity(addRefuel);
                 finish();
             }
         }, 1000);
     }
 
+    private void initDatabase(){
+        FileHelper file = new FileHelper();
+        file.initialDatabase();
+    }
+
     private void dbReadRefuel() {
+
         DBHelper dbHelper = new DBHelper(getApplicationContext());
+
+        //dbHelper.dropDatabase(getApplicationContext());
+
         try {
             SQLiteDatabase dbRead = dbHelper.getReadableDatabase();
 
@@ -48,7 +59,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 while (c.moveToNext()) {
                     Refuel tmpRefuel = new Refuel();
                     tmpRefuel.setId(Integer.parseInt(c.getString(0)));
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
                     Date date = dateFormat.parse(c.getString(1));
                     tmpRefuel.setDate(date);
                     tmpRefuel.setPetrolStation(c.getString(2));
@@ -61,10 +72,9 @@ public class WelcomeActivity extends AppCompatActivity {
                     tmpRefuel.setComment(c.getString(9));
 
                     refuels.add(tmpRefuel);
-
-                    Globals global = Globals.getInstance();
-                    global.addRefuels(refuels);
                 }
+                Globals global = Globals.getInstance();
+                global.addRefuels(refuels);
             } catch (Exception e) {
                 System.out.print(e.toString());
             } finally {

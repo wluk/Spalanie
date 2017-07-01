@@ -1,10 +1,13 @@
 package localhost.spalanie;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -18,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -28,7 +32,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class TestActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private Globals global;
 
@@ -38,6 +42,7 @@ public class TestActivity extends AppCompatActivity {
     private ConstraintLayout refuelView;
     private ListView listRefuel;
     private RefuelAdapter adapter;
+    boolean doubleBackToExitPressedOnce = false;
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -56,6 +61,7 @@ public class TestActivity extends AppCompatActivity {
                     avgVP.setVisibility(View.GONE);
                     statsVP.setVisibility(View.VISIBLE);
                     refuelView.setVisibility(View.GONE);
+                    addRefuelVice.setVisibility(View.GONE);
                     graph();
                     return true;
                 case R.id.navigation_notifications:
@@ -245,6 +251,7 @@ public class TestActivity extends AppCompatActivity {
         try {
             SQLiteDatabase dbWrite = dbHelper.getReadableDatabase();
             dbHelper.addRefuel(dbWrite, refuelToInsert);
+            Toast.makeText(this, getString(R.string.add_refuel), Toast.LENGTH_SHORT).show();
         } catch (SQLiteException ex) {
             System.out.println(ex);
         } finally {
@@ -254,18 +261,21 @@ public class TestActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
         goToHomePage();
-//        new AlertDialog.Builder(this)
-//                .setMessage("Are you sure you want to exit?")
-//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        TestActivity.super.onBackPressed();
-//                    }
-//                })
-//                .setNegativeButton("No", null)
-//                .show();
+        Toast.makeText(this, getString(R.string.double_back_btn), Toast.LENGTH_SHORT).show();
 
+        new Handler().postDelayed(new Runnable() {
 
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

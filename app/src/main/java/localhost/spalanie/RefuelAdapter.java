@@ -45,6 +45,7 @@ class RefuelAdapter extends BaseAdapter {
         TextView DateRefuelText = (TextView) rowView.findViewById(R.id.RefuleDate);
         TextView LitersRefuelText = (TextView) rowView.findViewById(R.id.RefuleLiters);
         TextView CombustionRefuelText = (TextView) rowView.findViewById(R.id.RefuleCombustion);
+        TextView IdRefuelText = (TextView) rowView.findViewById(R.id.RefuelId);
         ImageView IconTank = (ImageView) rowView.findViewById(R.id.iconTank);
 
 
@@ -53,6 +54,7 @@ class RefuelAdapter extends BaseAdapter {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String format = formatter.format(singleRefuel.getDate());
         DateRefuelText.setText(format);
+        IdRefuelText.setText("#" + singleRefuel.getId());
 
         LitersRefuelText.setText(singleRefuel.getSubBilling().toString());
 
