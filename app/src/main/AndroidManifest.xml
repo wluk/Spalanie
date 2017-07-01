@@ -3,9 +3,8 @@
           package="localhost.spalanie">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.READ_PROFILE"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -22,11 +21,21 @@
         </activity>
         <activity
             android:name=".TestActivity"
-            android:label="@string/title_activity_test"/>
+            android:label="@string/title_activity_test">
+            <intent-filter>
+                <action android:name=".TestActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SingleRefuelActivity"
             android:label="@string/title_activity_single_refule"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:parentActivityName=".TestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".TestActivity"/>
+        </activity>
     </application>
 
 </manifest>

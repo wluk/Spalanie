@@ -1,5 +1,7 @@
 package localhost.spalanie;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,6 +13,7 @@ public class Globals {
     private static Globals instance;
     // Global variable
     private final List<Refuel> refuels;
+    private Context _context;
 
     private Globals() {
         refuels = new ArrayList<>();
@@ -185,4 +188,6 @@ public class Globals {
         return !refuels.isEmpty();
     }
     //endregion
+
+
 }

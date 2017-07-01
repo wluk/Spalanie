@@ -1,7 +1,6 @@
 package localhost.spalanie;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
@@ -24,30 +23,23 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class TestActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
     private Globals global;
 
     private LinearLayout avgVP;
     private LinearLayout statsVP;
-    private RelativeLayout addRefuleViwe;
-    private ConstraintLayout refuleView;
-    private ArrayList<Refuel> list;
-    private ListView listRefule;
+    private RelativeLayout addRefuelVice;
+    private ConstraintLayout refuelView;
+    private ListView listRefuel;
     private RefuelAdapter adapter;
 
-    private Cursor todoCursor;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
@@ -57,27 +49,27 @@ public class TestActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     avgVP.setVisibility(View.GONE);
                     statsVP.setVisibility(View.GONE);
-                    refuleView.setVisibility(View.VISIBLE);
-                    addRefuleViwe.setVisibility(View.GONE);
+                    refuelView.setVisibility(View.VISIBLE);
+                    addRefuelVice.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_dashboard:
                     avgVP.setVisibility(View.GONE);
                     statsVP.setVisibility(View.VISIBLE);
-                    refuleView.setVisibility(View.GONE);
-                    wykres();
+                    refuelView.setVisibility(View.GONE);
+                    graph();
                     return true;
                 case R.id.navigation_notifications:
                     avgVP.setVisibility(View.VISIBLE);
                     statsVP.setVisibility(View.GONE);
-                    refuleView.setVisibility(View.GONE);
-                    addRefuleViwe.setVisibility(View.GONE);
+                    refuelView.setVisibility(View.GONE);
+                    addRefuelVice.setVisibility(View.GONE);
                     setStats();
                     return true;
                 case R.id.navigation_add_refule:
                     avgVP.setVisibility(View.GONE);
                     statsVP.setVisibility(View.GONE);
-                    refuleView.setVisibility(View.GONE);
-                    addRefuleViwe.setVisibility(View.VISIBLE);
+                    refuelView.setVisibility(View.GONE);
+                    addRefuelVice.setVisibility(View.VISIBLE);
                     return true;
             }
             return false;
@@ -91,46 +83,72 @@ public class TestActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-
-        setLayout();
-        btnAddLisnerer();
-        goTOHomePage();
-        dbOp();
-        refreshRefules();
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        listRefule.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        setLayout();
+        binAddListener();
+        goToHomePage();
+        refreshRefuels();
+
+        listRefuel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Refuel model = (Refuel) adapter.getItem(position);
 
-                goToSingleRefuleActivity(model);
+                goToSingleRefuelActivity(model);
             }
         });
     }
 
-    private void goTOHomePage() {
+    private void goToHomePage() {
         avgVP.setVisibility(View.GONE);
         statsVP.setVisibility(View.GONE);
-        addRefuleViwe.setVisibility(View.GONE);
-        refuleView.setVisibility(View.VISIBLE);
+        addRefuelVice.setVisibility(View.GONE);
+        refuelView.setVisibility(View.VISIBLE);
     }
 
-    private void refreshRefules() {
-        list = new ArrayList<Refuel>();
+    private void refreshRefuels() {
+        ArrayList<Refuel> list = new ArrayList<>();
         for (Refuel item : global.getData()) {
             list.add(item);
         }
         Collections.reverse(list);
-        listRefule = (ListView) findViewById(R.id.list);
+        listRefuel = (ListView) findViewById(R.id.list);
         adapter = new RefuelAdapter(this, list);
-        listRefule.setAdapter(adapter);
+        listRefuel.setAdapter(adapter);
     }
 
-    private void wykres() {
+    private void setLayout() {
+        avgVP = (LinearLayout) findViewById(R.id.avgView);
+        statsVP = (LinearLayout) findViewById(R.id.statsView);
+        addRefuelVice = (RelativeLayout) findViewById(R.id.addRefuleView);
+        refuelView = (ConstraintLayout) findViewById(R.id.refuleView);
+    }
+
+    private void goToSingleRefuelActivity(Refuel refuel) {
+        Intent singleRefuelActivity = new Intent();
+        singleRefuelActivity.setClass(this, SingleRefuelActivity.class);
+
+        singleRefuelActivity.putExtra("refuel", refuel);
+
+        startActivity(singleRefuelActivity);
+    }
+
+    private void binAddListener() {
+        Button addRefuel = (Button) findViewById(R.id.btnAdd);
+        addRefuel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dbAddRefuel(getRefuelData());
+                goToHomePage();
+                refreshRefuels();
+            }
+        });
+    }
+
+    private void graph() {
         // Line Graph
         List<Refuel> refuels = global.getData();
 
@@ -144,7 +162,7 @@ public class TestActivity extends AppCompatActivity {
             iterator++;
         }
         DataPoint[] points = prices.toArray(new DataPoint[0]);
-        LineGraphSeries<DataPoint> line_series = new LineGraphSeries<DataPoint>(points);
+        LineGraphSeries<DataPoint> line_series = new LineGraphSeries<>(points);
 
         line_graph.addSeries(line_series);
 
@@ -165,54 +183,7 @@ public class TestActivity extends AppCompatActivity {
         line_series.setBackgroundColor(Color.BLUE);
     }
 
-    private void setStats() {
-        TextView avgCombunious = (TextView) findViewById(R.id.tvAVGCombunius);
-        avgCombunious.setText(getString(R.string.combustion) + " " + String.valueOf(global.getAvgCombustion() + getString(R.string.combustionPerKilometers)));
-        TextView avgSubBilings = (TextView) findViewById(R.id.tvAVGKIlometers);
-        avgSubBilings.setText(getString(R.string.kilometers) + " " + String.valueOf(global.getAvgSubBilling()));
-        TextView avgPrice = (TextView) findViewById(R.id.tvAVGPrice);
-        avgPrice.setText(getString(R.string.price) + " " + String.valueOf(global.getAvgPrice() + getString(R.string.currency)));
-        TextView minCombunious = (TextView) findViewById(R.id.tvMinCombunious);
-        minCombunious.setText(getString(R.string.combustion) + " " + String.valueOf(global.getMinCombustion() + getString(R.string.combustionPerKilometers)));
-        TextView minPrice = (TextView) findViewById(R.id.tvMinPrice);
-        minPrice.setText(getString(R.string.price) + " " + String.valueOf(global.getMinPrice() + getString(R.string.currency)));
-        TextView maxCombunious = (TextView) findViewById(R.id.tvMaxCombunius);
-        maxCombunious.setText(getString(R.string.combustion) + " " + String.valueOf(global.getMaxCombustion() + getString(R.string.combustionPerKilometers)));
-        TextView maxPrice = (TextView) findViewById(R.id.tvMaxPrice);
-        maxPrice.setText(getString(R.string.price) + " " + String.valueOf(global.getMaxPrice() + getString(R.string.currency)));
-        TextView maxKilometers = (TextView) findViewById(R.id.tvMaxKilometers);
-        maxKilometers.setText(getString(R.string.kilometers) + " " + String.valueOf(global.getMaxKilometers()));
-    }
-
-    private void setLayout() {
-        avgVP = (LinearLayout) findViewById(R.id.avgView);
-        statsVP = (LinearLayout) findViewById(R.id.statsView);
-        addRefuleViwe = (RelativeLayout) findViewById(R.id.addRefuleView);
-        refuleView = (ConstraintLayout) findViewById(R.id.refuleView);
-    }
-
-    private void goToSingleRefuleActivity(Refuel refuel) {
-        Intent singleRefuleActivity = new Intent();
-        singleRefuleActivity.setClass(this, SingleRefuelActivity.class);
-
-        singleRefuleActivity.putExtra("refuel", refuel);
-
-        startActivity(singleRefuleActivity);
-    }
-
-    private void btnAddLisnerer() {
-        Button addRefule = (Button) findViewById(R.id.btnAdd);
-        addRefule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                global.addData(getRefuleData(view));
-                goTOHomePage();
-                refreshRefules();
-            }
-        });
-    }
-
-    private Refuel getRefuleData(View v) {
+    private Refuel getRefuelData() {
         Refuel refuel = new Refuel();
 
         EditText valueSubBilling = (EditText) findViewById(R.id.editSub_billing);
@@ -241,52 +212,60 @@ public class TestActivity extends AppCompatActivity {
         return refuel;
     }
 
-    private void goToMainActivity() {
-        Intent mainActivity = new Intent();
-        mainActivity.setClass(this, TestActivity.class);
-        //mainActivity.putExtra("refule", refuleData);
+    private void setStats() {
+        TextView avgCombustion = (TextView) findViewById(R.id.tvAVGCombunius);
+        avgCombustion.setText(getString(R.string.combustion) + " " + String.valueOf(global.getAvgCombustion() + getString(R.string.combustionPerKilometers)));
 
-        startActivity(mainActivity);
+        TextView avgSubBillings = (TextView) findViewById(R.id.tvAVGKIlometers);
+        avgSubBillings.setText(getString(R.string.kilometers) + " " + String.valueOf(global.getAvgSubBilling()));
+
+        TextView avgPrice = (TextView) findViewById(R.id.tvAVGPrice);
+        avgPrice.setText(getString(R.string.price) + " " + String.valueOf(global.getAvgPrice() + getString(R.string.currency)));
+
+        TextView minCombustion = (TextView) findViewById(R.id.tvMinCombunious);
+        minCombustion.setText(getString(R.string.combustion) + " " + String.valueOf(global.getMinCombustion() + getString(R.string.combustionPerKilometers)));
+
+        TextView minPrice = (TextView) findViewById(R.id.tvMinPrice);
+        minPrice.setText(getString(R.string.price) + " " + String.valueOf(global.getMinPrice() + getString(R.string.currency)));
+
+        TextView maxCombustion = (TextView) findViewById(R.id.tvMaxCombunius);
+        maxCombustion.setText(getString(R.string.combustion) + " " + String.valueOf(global.getMaxCombustion() + getString(R.string.combustionPerKilometers)));
+
+        TextView maxPrice = (TextView) findViewById(R.id.tvMaxPrice);
+        maxPrice.setText(getString(R.string.price) + " " + String.valueOf(global.getMaxPrice() + getString(R.string.currency)));
+
+        TextView maxKilometers = (TextView) findViewById(R.id.tvMaxKilometers);
+        maxKilometers.setText(getString(R.string.kilometers) + " " + String.valueOf(global.getMaxKilometers()));
     }
 
-    private void dbOp() {
-        DBHelper dbHelper = new DBHelper(this);
+    private void dbAddRefuel(Refuel refuelToInsert) {
+        global.addData(refuelToInsert);
+
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
         try {
-            SQLiteDatabase dbRead = dbHelper.getReadableDatabase();
-            dbHelper.onUpgrade(dbRead, 3, 4);
-            Cursor c = dbRead.query(RefuelTable.TABLE_NAME, new String[]{RefuelTable.ID, RefuelTable.DATE, RefuelTable.STATION, RefuelTable.SUB_BILLING, RefuelTable.LITERS, RefuelTable.PRICE, RefuelTable.COMBUSTION, RefuelTable.COMBUSTION_CAR, RefuelTable.AVG_SPEED, RefuelTable.COMMENT}, null, null, null, null, null, null);
-
-            ArrayList<Refuel> refuels = new ArrayList<Refuel>();
-
-            try {
-                while (c.moveToNext()) {
-                    Refuel tmpRefuel = new Refuel();
-                    tmpRefuel.setId(Integer.parseInt(c.getString(0)));
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-                    Date date = dateFormat.parse(c.getString(1));
-                    tmpRefuel.setDate(date);
-                    tmpRefuel.setPetrolStation(c.getString(2));
-                    tmpRefuel.setSubBilling(Double.parseDouble(c.getString(3)));
-                    tmpRefuel.setLiters(Double.parseDouble(c.getString(4)));
-                    tmpRefuel.setPrice(Double.parseDouble(c.getString(5)));
-                    tmpRefuel.setCombustion(Double.parseDouble(c.getString(6)));
-                    tmpRefuel.setCombustionPC(Double.parseDouble(c.getString(7)));
-                    tmpRefuel.setAvg_speed(Integer.parseInt(c.getString(8)));
-                    tmpRefuel.setComment(c.getString(9));
-
-                    refuels.add(tmpRefuel);
-                }
-            } catch (Exception e) {
-                System.out.print(e.toString());
-            } finally {
-                c.close();
-                global.addRefuels(refuels);
-            }
-
+            SQLiteDatabase dbWrite = dbHelper.getReadableDatabase();
+            dbHelper.addRefuel(dbWrite, refuelToInsert);
         } catch (SQLiteException ex) {
             System.out.println(ex);
         } finally {
             dbHelper.close();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        goToHomePage();
+//        new AlertDialog.Builder(this)
+//                .setMessage("Are you sure you want to exit?")
+//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        TestActivity.super.onBackPressed();
+//                    }
+//                })
+//                .setNegativeButton("No", null)
+//                .show();
+
+
     }
 }

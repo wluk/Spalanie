@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Wartości średnie"
+            android:textSize="20sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -27,21 +28,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Spalanie: "/>
+            android:text="Spalanie: "
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/tvAVGPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cena: "/>
+            android:text="Cena: "
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/tvAVGKIlometers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Kilometry: "/>
+            android:text="Kilometry: "
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="@dimen/activity_vertical_margin"
+            android:layout_height="@dimen/fab_margin"
+            android:layout_weight="1"
+            android:text=" "
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
@@ -57,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Wartości minimalne"
+            android:textSize="20sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -64,14 +77,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Spalanie: "/>
+            android:text="Spalanie: "
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/tvMinPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cena: "/>
+            android:text="Cena: "
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fab_margin"
+            android:layout_weight="1"
+            android:textSize="20sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -86,6 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Wartości maksymlne"
+            android:textSize="20sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -93,21 +116,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Spalanie: "/>
+            android:text="Spalanie: "
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/tvMaxPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cena: "/>
+            android:text="Cena: "
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/tvMaxKilometers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ilość kilometrów "/>
+            android:text="Ilość kilometrów "
+            android:textSize="20sp"/>
     </LinearLayout>
 
 </LinearLayout>

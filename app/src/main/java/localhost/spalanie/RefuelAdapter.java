@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
-public class RefuelAdapter extends BaseAdapter {
+class RefuelAdapter extends BaseAdapter {
 
     private final LayoutInflater mInflater;
     private final ArrayList<Refuel> mDataSource;
