@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 
-public class FileHelper {
+class FileHelper {
 
     public void initialDatabase() {
         if (isExistLocalCopy()) {
@@ -32,7 +32,7 @@ public class FileHelper {
         String sourceDbPath = DBName.DATA_BASE_NAME;
         String destinationDbPath = "/data/" + "localhost.spalanie" + "/databases/" + DBName.DATA_BASE_NAME;
 
-        File sourceDb = new File(source, sourceDbPath);;
+        File sourceDb = new File(source, sourceDbPath);
         File destinationDb = new File(destination, destinationDbPath);
 
         copyDbFile(sourceDb, destinationDb);
@@ -53,14 +53,14 @@ public class FileHelper {
 
     private void copyDbFile(File currentDB, File backupDB) {
 
-        FileChannel sourceChannel = null;
-        FileChannel destinationchaChannel = null;
+        FileChannel sourceChannel;
+        FileChannel destinationChannel;
         try {
             sourceChannel = new FileInputStream(currentDB).getChannel();
-            destinationchaChannel = new FileOutputStream(backupDB).getChannel();
-            destinationchaChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
+            destinationChannel = new FileOutputStream(backupDB).getChannel();
+            destinationChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
             sourceChannel.close();
-            destinationchaChannel.close();
+            destinationChannel.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

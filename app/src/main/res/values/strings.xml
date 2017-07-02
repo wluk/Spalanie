@@ -8,7 +8,7 @@
     <string name="price">Cena za litr:</string>
     <string name="combustion">Spalanie:</string>
     <string name="combustionPC">Spalanie wg komputera:</string>
-    <string name="avg_seppd">Srednia prętkść wg komputera:</string>
+    <string name="avg_speed">Srednia prętkść wg komputera:</string>
     <string name="add">Dodaj</string>
     <string name="petrol_station">Stacja paliw:</string>
     <string name="station">stacja</string>
@@ -28,9 +28,10 @@
     <string name="title_notifications">Notifications</string>
 
     <string name="date_refueling">Data tankowania:</string>
-    <string name="title_activity_single_refule">SingleRefuleActivity</string>
+    <string name="title_activity_single_refuel">SingleRefuleActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_test2">Test2Activity</string>
     <string name="max_combustion">Spalanie maksymalne</string>
+    <string name="title_activity_stats">StatsActivity</string>
 </resources>

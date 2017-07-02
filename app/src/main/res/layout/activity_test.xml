@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"/>
 
         <include
-            android:id="@+id/addRefuleView"
+            android:id="@+id/addRefuelView"
             layout="@layout/activity_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

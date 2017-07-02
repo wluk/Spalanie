@@ -68,8 +68,6 @@ public class SingleRefuelActivity extends AppCompatActivity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            SingleRefuelActivity singleRefuelActivity = (SingleRefuelActivity) getActivity();
-
             View rootView = inflater.inflate(R.layout.fragment_single_refule, container, false);
 
             TextView data = (TextView) rootView.findViewById(R.id.tvDate);
@@ -87,7 +85,7 @@ public class SingleRefuelActivity extends AppCompatActivity {
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
             String formatDate = formatter.format(refuel.getDate());
-            data.setText(formatDate);
+            data.setText(refuel.getId().toString());
             kilometry.setText(refuel.getSubBilling().toString());
             litry.setText(refuel.getLiters().toString());
             spalanie.setText(refuel.getCombustion().toString());

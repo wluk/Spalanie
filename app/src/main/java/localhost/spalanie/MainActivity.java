@@ -1,7 +1,5 @@
 package localhost.spalanie;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -12,6 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout refuelView;
     private ListView listRefuel;
     private RefuelAdapter adapter;
-    boolean doubleBackToExitPressedOnce = false;
+    private boolean doubleBackToExitPressedOnce = false;
+
+    private EditText valueSubBilling, valueLiters, valuePrice, valueCombustion, valueAvgSpeed, valuePetrolStation;
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -93,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         setLayout();
-        binAddListener();
         goToHomePage();
         refreshRefuels();
+        registerViews();
 
         listRefuel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -106,6 +108,15 @@ public class MainActivity extends AppCompatActivity {
                 goToSingleRefuelActivity(model);
             }
         });
+    }
+
+    private void loadEdits() {
+        valueSubBilling = (EditText) findViewById(R.id.editSub_billing);
+        valueLiters = (EditText) findViewById(R.id.editLiters);
+        valuePrice = (EditText) findViewById(R.id.editPrice);
+        valueCombustion = (EditText) findViewById(R.id.editCombustion);
+        valueAvgSpeed = (EditText) findViewById(R.id.editAvgSpeed);
+        valuePetrolStation = (EditText) findViewById(R.id.editPetrolStation);
     }
 
     private void goToHomePage() {
@@ -129,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     private void setLayout() {
         avgVP = (LinearLayout) findViewById(R.id.avgView);
         statsVP = (LinearLayout) findViewById(R.id.statsView);
-        addRefuelVice = (RelativeLayout) findViewById(R.id.addRefuleView);
+        addRefuelVice = (RelativeLayout) findViewById(R.id.addRefuelView);
         refuelView = (ConstraintLayout) findViewById(R.id.refuleView);
     }
 
@@ -142,23 +153,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(singleRefuelActivity);
     }
 
-    private void binAddListener() {
-        Button addRefuel = (Button) findViewById(R.id.btnAdd);
-        addRefuel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dbAddRefuel(getRefuelData());
-                goToHomePage();
-                refreshRefuels();
-            }
-        });
-    }
-
     private void graph() {
         // Line Graph
         List<Refuel> refuels = global.getData();
 
         GraphView line_graph = (GraphView) findViewById(R.id.graph);
+        line_graph.addTouchables(new ArrayList<View>());
 
         int iterator = 0;
         ArrayList<DataPoint> prices = new ArrayList<>();
@@ -192,28 +192,18 @@ public class MainActivity extends AppCompatActivity {
     private Refuel getRefuelData() {
         Refuel refuel = new Refuel();
 
-        EditText valueSubBilling = (EditText) findViewById(R.id.editSub_billing);
         refuel.setSubBilling(Double.valueOf(valueSubBilling.getText().toString()));
-
-        EditText valueLiters = (EditText) findViewById(R.id.editLiters);
         refuel.setLiters(Double.valueOf(valueLiters.getText().toString()));
-
-        EditText valuePrice = (EditText) findViewById(R.id.editPrice);
         refuel.setPrice(Double.valueOf(valuePrice.getText().toString()));
-
-        EditText valueCombustion = (EditText) findViewById(R.id.editCombustion);
         refuel.setCombustionPC(Double.valueOf(valueCombustion.getText().toString()));
-
-        EditText valueAvgSpeed = (EditText) findViewById(R.id.editAvgSpeed);
         refuel.setAvg_speed(Integer.valueOf(valueAvgSpeed.getText().toString()));
-
-        EditText valuePetrolStation = (EditText) findViewById(R.id.editPetrolStation);
         refuel.setPetrolStation(valuePetrolStation.getText().toString());
 
         refuel.setCombustion(Math.round(((refuel.getLiters() / (double) refuel.getSubBilling()) * 100) * 100.0) / 100.0);
         refuel.setDate(new Date());
 
         refuel.setId(global.getRefuelCount() + 1);
+
 
         return refuel;
     }
@@ -274,8 +264,117 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
+    }
+
+    private void registerViews() {
+        loadEdits();
+
+        valueSubBilling.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                Validation.hasText(valueSubBilling);
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        valueLiters.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                Validation.hasText(valueLiters);
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        valuePrice.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                Validation.hasText(valuePrice);
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        valueCombustion.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                Validation.hasText(valueCombustion);
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        valueAvgSpeed.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                Validation.hasText(valueAvgSpeed);
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        valuePetrolStation.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                Validation.hasText(valuePetrolStation);
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        Button addBtnSubmit = (Button) findViewById(R.id.btnAdd);
+        addBtnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkValidation())
+                    submitForm();
+                else
+                    Toast.makeText(MainActivity.this, "Form contains error", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void submitForm() {
+        // Submit your form here. your form is valid
+        Toast.makeText(this, "Submitting form...", Toast.LENGTH_LONG).show();
+
+        dbAddRefuel(getRefuelData());
+        goToHomePage();
+        refreshRefuels();
+    }
+
+    private boolean checkValidation() {
+        boolean ret = true;
+
+        if (!Validation.hasText(valueSubBilling)) ret = false;
+        if (!Validation.hasText(valueLiters)) ret = false;
+        if (!Validation.hasText(valuePrice)) ret = false;
+        if (!Validation.hasText(valueCombustion)) ret = false;
+        if (!Validation.hasText(valueAvgSpeed)) ret = false;
+        if (!Validation.hasText(valuePetrolStation)) ret = false;
+
+        return ret;
     }
 }

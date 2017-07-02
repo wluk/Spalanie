@@ -1,6 +1,5 @@
 package localhost.spalanie;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

@@ -3,9 +3,7 @@ package localhost.spalanie;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 

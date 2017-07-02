@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -15,7 +14,6 @@
         android:width="100dp"
         android:ems="10"
         android:inputType="number"
-        android:text="555"
         android:textSize="14sp"/>
 
     <TextView
@@ -68,7 +66,7 @@
         android:layout_alignStart="@+id/textPrice"
         android:layout_below="@+id/editCombustion"
         android:width="100dp"
-        android:text="@string/avg_seppd"/>
+        android:text="@string/avg_speed"/>
 
     <EditText
         android:id="@+id/editPrice"
@@ -80,7 +78,6 @@
         android:width="100dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:text="4.51"
         android:textSize="14sp"/>
 
     <EditText
@@ -93,9 +90,8 @@
         android:width="100dp"
         android:ems="10"
         android:inputType="text"
-        android:text="BP BB Żywiecka"
         android:textSize="14sp"
-        tools:text="@string/station"/>
+        />
 
     <EditText
         android:id="@+id/editAvgSpeed"
@@ -107,7 +103,6 @@
         android:width="100dp"
         android:ems="10"
         android:inputType="number"
-        android:text="39"
         android:textSize="14sp"/>
 
     <EditText
@@ -120,7 +115,6 @@
         android:width="100dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:text="7.8"
         android:textSize="14sp"/>
 
     <EditText
@@ -133,7 +127,6 @@
         android:width="100dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:text="43"
         android:textSize="14sp"/>
 
     <Button
@@ -154,10 +147,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/petrol_station"
         android:layout_alignBaseline="@+id/editPetrolStation"
         android:layout_alignBottom="@+id/editPetrolStation"
-        android:layout_alignLeft="@+id/textPrice"
-        android:layout_alignStart="@+id/textPrice"
-        android:text="@string/petrol_station"/>
+        android:layout_alignLeft="@+id/textView12"
+        android:layout_alignStart="@+id/textView12"/>
 
 </RelativeLayout>

@@ -42,9 +42,9 @@ class RefuelAdapter extends BaseAdapter {
 
         View rowView = mInflater.inflate(R.layout.item_refule, parent, false);
 
-        TextView DateRefuelText = (TextView) rowView.findViewById(R.id.RefuleDate);
-        TextView LitersRefuelText = (TextView) rowView.findViewById(R.id.RefuleLiters);
-        TextView CombustionRefuelText = (TextView) rowView.findViewById(R.id.RefuleCombustion);
+        TextView DateRefuelText = (TextView) rowView.findViewById(R.id.RefuelDate);
+        TextView LitersRefuelText = (TextView) rowView.findViewById(R.id.RefuelLiters);
+        TextView CombustionRefuelText = (TextView) rowView.findViewById(R.id.RefuelCombustion);
         TextView IdRefuelText = (TextView) rowView.findViewById(R.id.RefuelId);
         ImageView IconTank = (ImageView) rowView.findViewById(R.id.iconTank);
 

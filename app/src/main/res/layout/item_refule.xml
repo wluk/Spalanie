@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:paddingLeft="3pt"
-                android:paddingRight="1pt"/>
+                android:paddingRight="3pt"/>
 
             <TextView
                 android:id="@+id/RefuelId"
@@ -58,7 +58,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/RefuleDate"
+                    android:id="@+id/RefuelDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -80,7 +80,7 @@
                     android:textAlignment="viewStart"/>
 
                 <TextView
-                    android:id="@+id/RefuleLiters"
+                    android:id="@+id/RefuelLiters"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.26"
@@ -101,7 +101,7 @@
                     android:textAlignment="viewStart"/>
 
                 <TextView
-                    android:id="@+id/RefuleCombustion"
+                    android:id="@+id/RefuelCombustion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.43"
