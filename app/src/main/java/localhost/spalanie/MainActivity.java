@@ -3,7 +3,6 @@ package localhost.spalanie;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -24,25 +23,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private Globals global;
 
     private LinearLayout avgVP;
-    private LinearLayout statsVP;
+    private LinearLayout pricesVP;
+    private LinearLayout combustionVP;
     private RelativeLayout addRefuelVice;
     private ConstraintLayout refuelView;
     private ListView listRefuel;
-    private RefuelAdapter adapter;
     private boolean doubleBackToExitPressedOnce = false;
+    private Graph graph;
 
     private EditText valueSubBilling, valueLiters, valuePrice, valueCombustion, valueAvgSpeed, valuePetrolStation;
 
@@ -55,29 +52,41 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     avgVP.setVisibility(View.GONE);
-                    statsVP.setVisibility(View.GONE);
+                    pricesVP.setVisibility(View.GONE);
+                    combustionVP.setVisibility(View.GONE);
                     refuelView.setVisibility(View.VISIBLE);
                     addRefuelVice.setVisibility(View.GONE);
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_pricesStat:
+                    graph.graphPrices((GraphView) findViewById(R.id.graphPrices));
                     avgVP.setVisibility(View.GONE);
-                    statsVP.setVisibility(View.VISIBLE);
+                    pricesVP.setVisibility(View.VISIBLE);
+                    combustionVP.setVisibility(View.GONE);
                     refuelView.setVisibility(View.GONE);
                     addRefuelVice.setVisibility(View.GONE);
-                    graph();
                     return true;
                 case R.id.navigation_notifications:
+                    setStats();
                     avgVP.setVisibility(View.VISIBLE);
-                    statsVP.setVisibility(View.GONE);
+                    pricesVP.setVisibility(View.GONE);
+                    combustionVP.setVisibility(View.GONE);
                     refuelView.setVisibility(View.GONE);
                     addRefuelVice.setVisibility(View.GONE);
-                    setStats();
                     return true;
                 case R.id.navigation_add_refule:
                     avgVP.setVisibility(View.GONE);
-                    statsVP.setVisibility(View.GONE);
+                    pricesVP.setVisibility(View.GONE);
+                    combustionVP.setVisibility(View.GONE);
                     refuelView.setVisibility(View.GONE);
                     addRefuelVice.setVisibility(View.VISIBLE);
+                    return true;
+                case R.id.navigation_combustionStat:
+                    graph.graphCombustion((GraphView) findViewById(R.id.graphCombustion));
+                    avgVP.setVisibility(View.GONE);
+                    pricesVP.setVisibility(View.GONE);
+                    combustionVP.setVisibility(View.VISIBLE);
+                    refuelView.setVisibility(View.GONE);
+                    addRefuelVice.setVisibility(View.GONE);
                     return true;
             }
             return false;
@@ -88,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         global = Globals.getInstance();
+        graph = new Graph();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
@@ -102,10 +112,7 @@ public class MainActivity extends AppCompatActivity {
         listRefuel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Refuel model = (Refuel) adapter.getItem(position);
-
-                goToSingleRefuelActivity(model);
+                goToSingleRefuelActivity(((int) id) - 1);
             }
         });
     }
@@ -121,8 +128,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToHomePage() {
         avgVP.setVisibility(View.GONE);
-        statsVP.setVisibility(View.GONE);
+        pricesVP.setVisibility(View.GONE);
         addRefuelVice.setVisibility(View.GONE);
+        combustionVP.setVisibility(View.GONE);
         refuelView.setVisibility(View.VISIBLE);
     }
 
@@ -133,60 +141,24 @@ public class MainActivity extends AppCompatActivity {
         }
         Collections.reverse(list);
         listRefuel = (ListView) findViewById(R.id.list);
-        adapter = new RefuelAdapter(this, list);
+        RefuelAdapter adapter = new RefuelAdapter(this, list);
         listRefuel.setAdapter(adapter);
     }
 
     private void setLayout() {
-        avgVP = (LinearLayout) findViewById(R.id.avgView);
-        statsVP = (LinearLayout) findViewById(R.id.statsView);
+        avgVP = (LinearLayout) findViewById(R.id.statsView);
+        pricesVP = (LinearLayout) findViewById(R.id.statsPricesView);
+        combustionVP = (LinearLayout) findViewById(R.id.statsCombustionView);
         addRefuelVice = (RelativeLayout) findViewById(R.id.addRefuelView);
         refuelView = (ConstraintLayout) findViewById(R.id.refuleView);
     }
 
-    private void goToSingleRefuelActivity(Refuel refuel) {
+    private void goToSingleRefuelActivity(int refuel_id) {
         Intent singleRefuelActivity = new Intent();
         singleRefuelActivity.setClass(this, SingleRefuelActivity.class);
-
-        singleRefuelActivity.putExtra("refuel", refuel);
+        singleRefuelActivity.putExtra("refuel_id", refuel_id);
 
         startActivity(singleRefuelActivity);
-    }
-
-    private void graph() {
-        // Line Graph
-        List<Refuel> refuels = global.getData();
-
-        GraphView line_graph = (GraphView) findViewById(R.id.graph);
-        line_graph.addTouchables(new ArrayList<View>());
-
-        int iterator = 0;
-        ArrayList<DataPoint> prices = new ArrayList<>();
-        for (Refuel item : refuels) {
-            DataPoint newest = new DataPoint(iterator, item.getPrice());
-            prices.add(newest);
-            iterator++;
-        }
-        DataPoint[] points = prices.toArray(new DataPoint[0]);
-        LineGraphSeries<DataPoint> line_series = new LineGraphSeries<>(points);
-
-        line_graph.addSeries(line_series);
-
-        // set the bound
-
-        // set manual X bounds
-        line_graph.getViewport().setXAxisBoundsManual(false);
-        line_graph.getViewport().setMinX(0);
-        line_graph.getViewport().setMaxX(iterator);
-
-        // set manual Y bounds
-        line_graph.getViewport().setYAxisBoundsManual(false);
-        line_graph.getViewport().setMinY(3);
-        line_graph.getViewport().setMaxY(6);
-
-        line_graph.getViewport().setScrollable(true);
-        line_series.setDrawBackground(true);
-        line_series.setBackgroundColor(Color.BLUE);
     }
 
     private Refuel getRefuelData() {
@@ -274,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
         valueSubBilling.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                Validation.hasText(valueSubBilling);
+                Validation.hasText(valueSubBilling, getApplicationContext());
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -286,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
 
         valueLiters.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                Validation.hasText(valueLiters);
+                Validation.hasText(valueLiters, getApplicationContext());
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -298,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
 
         valuePrice.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                Validation.hasText(valuePrice);
+                Validation.hasText(valuePrice, getApplicationContext());
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -310,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
 
         valueCombustion.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                Validation.hasText(valueCombustion);
+                Validation.hasText(valueCombustion, getApplicationContext());
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -322,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
 
         valueAvgSpeed.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                Validation.hasText(valueAvgSpeed);
+                Validation.hasText(valueAvgSpeed, getApplicationContext());
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -334,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
 
         valuePetrolStation.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                Validation.hasText(valuePetrolStation);
+                Validation.hasText(valuePetrolStation, getApplicationContext());
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -351,14 +323,14 @@ public class MainActivity extends AppCompatActivity {
                 if (checkValidation())
                     submitForm();
                 else
-                    Toast.makeText(MainActivity.this, "Form contains error", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.invalid_form), Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void submitForm() {
         // Submit your form here. your form is valid
-        Toast.makeText(this, "Submitting form...", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.submitting_form), Toast.LENGTH_LONG).show();
 
         dbAddRefuel(getRefuelData());
         goToHomePage();
@@ -368,12 +340,12 @@ public class MainActivity extends AppCompatActivity {
     private boolean checkValidation() {
         boolean ret = true;
 
-        if (!Validation.hasText(valueSubBilling)) ret = false;
-        if (!Validation.hasText(valueLiters)) ret = false;
-        if (!Validation.hasText(valuePrice)) ret = false;
-        if (!Validation.hasText(valueCombustion)) ret = false;
-        if (!Validation.hasText(valueAvgSpeed)) ret = false;
-        if (!Validation.hasText(valuePetrolStation)) ret = false;
+        if (!Validation.hasText(valueSubBilling, getApplicationContext())) ret = false;
+        if (!Validation.hasText(valueLiters, getApplicationContext())) ret = false;
+        if (!Validation.hasText(valuePrice, getApplicationContext())) ret = false;
+        if (!Validation.hasText(valueCombustion, getApplicationContext())) ret = false;
+        if (!Validation.hasText(valueAvgSpeed, getApplicationContext())) ret = false;
+        if (!Validation.hasText(valuePetrolStation, getApplicationContext())) ret = false;
 
         return ret;
     }

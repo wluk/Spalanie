@@ -1,5 +1,6 @@
 package localhost.spalanie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,18 +26,23 @@ public class SingleRefuelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_refule);
 
+        global = Globals.getInstance();
+        Intent intent = getIntent();
+        int refuel_id = intent.getIntExtra("refuel_id", global.getMaxId());
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setCurrentItem(refuel_id);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_single_refule, menu);
+        getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
 
@@ -45,13 +51,11 @@ public class SingleRefuelActivity extends AppCompatActivity {
 
         int id = item.getItemId();
 
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        return id == R.id.navigation || super.onOptionsItemSelected(item);
 
     }
 
     public static class PlaceholderFragment extends Fragment {
-
-        private static final String ARG_SECTION_NUMBER = "section_number";
         private final Globals global;
 
         public PlaceholderFragment() {
@@ -70,29 +74,29 @@ public class SingleRefuelActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_single_refule, container, false);
 
-            TextView data = (TextView) rootView.findViewById(R.id.tvDate);
-            TextView kilometry = (TextView) rootView.findViewById(R.id.tvSubBilling);
-            TextView litry = (TextView) rootView.findViewById(R.id.tvLiters);
-            TextView spalanie = (TextView) rootView.findViewById(R.id.tvCombustion);
-            TextView spalaniePC = (TextView) rootView.findViewById(R.id.tvCombustionPC);
-            TextView cena = (TextView) rootView.findViewById(R.id.tvPrice);
-            TextView predkosc = (TextView) rootView.findViewById(R.id.tvavgSpeed);
-            TextView stacja = (TextView) rootView.findViewById(R.id.tvStation);
+            TextView tvData = (TextView) rootView.findViewById(R.id.tvDate);
+            TextView tvKilometers = (TextView) rootView.findViewById(R.id.tvSubBilling);
+            TextView tvLiters = (TextView) rootView.findViewById(R.id.tvLiters);
+            TextView tvCombustion = (TextView) rootView.findViewById(R.id.tvCombustion);
+            TextView tvCombustionPC = (TextView) rootView.findViewById(R.id.tvCombustionPC);
+            TextView tvPrices = (TextView) rootView.findViewById(R.id.tvPrice);
+            TextView tvSpeed = (TextView) rootView.findViewById(R.id.tvavgSpeed);
+            TextView tvPetrolStation = (TextView) rootView.findViewById(R.id.tvStation);
 
             Bundle bundle = getArguments();
-            Integer pozycja = bundle.getInt("position");
-            Refuel refuel = global.getRefuelByPosition(pozycja);
+            Integer position = bundle.getInt("position");
+            Refuel refuel = global.getRefuelByPosition(position);
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
             String formatDate = formatter.format(refuel.getDate());
-            data.setText(refuel.getId().toString());
-            kilometry.setText(refuel.getSubBilling().toString());
-            litry.setText(refuel.getLiters().toString());
-            spalanie.setText(refuel.getCombustion().toString());
-            spalaniePC.setText(refuel.getCombustionPC().toString());
-            cena.setText(refuel.getPrice().toString());
-            predkosc.setText(refuel.getAvg_speed().toString());
-            stacja.setText(refuel.getPetrolStation());
+            tvData.setText(formatDate);
+            tvKilometers.setText(refuel.getSubBilling().toString());
+            tvLiters.setText(refuel.getLiters().toString());
+            tvCombustion.setText(refuel.getCombustion().toString());
+            tvCombustionPC.setText(refuel.getCombustionPC().toString());
+            tvPrices.setText(refuel.getPrice().toString());
+            tvSpeed.setText(refuel.getAvg_speed().toString());
+            tvPetrolStation.setText(refuel.getPetrolStation());
 
             return rootView;
         }
@@ -108,7 +112,7 @@ public class SingleRefuelActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position);
         }
 
         @Override

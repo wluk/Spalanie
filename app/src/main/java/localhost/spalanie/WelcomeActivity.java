@@ -51,6 +51,8 @@ public class WelcomeActivity extends AppCompatActivity {
         try {
             SQLiteDatabase dbRead = dbHelper.getReadableDatabase();
 
+            dbHelper.onUpgrade(dbRead, 6, 7);
+
             Cursor c = dbRead.query(RefuelTable.TABLE_NAME, new String[]{RefuelTable.ID, RefuelTable.DATE, RefuelTable.STATION, RefuelTable.SUB_BILLING, RefuelTable.LITERS, RefuelTable.PRICE, RefuelTable.COMBUSTION, RefuelTable.COMBUSTION_CAR, RefuelTable.AVG_SPEED, RefuelTable.COMMENT}, null, null, null, null, null, null);
 
             try {
@@ -74,6 +76,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
                 Globals global = Globals.getInstance();
                 global.addRefuels(refuels);
+                global.setAllPrices();
+                global.setAllCombustion();
             } catch (Exception e) {
                 System.out.print(e.toString());
             } finally {

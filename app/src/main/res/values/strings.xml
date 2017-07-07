@@ -1,37 +1,27 @@
 <resources>
     <string name="app_name">Spalanie</string>
     <string name="welcome">Witaj!</string>
-
-    <!-- Strings related to add new -->
     <string name="sub_billing">Stan podlicznika:</string>
     <string name="liters">Litry paliwa:</string>
     <string name="price">Cena za litr:</string>
     <string name="combustion">Spalanie:</string>
     <string name="combustionPC">Spalanie wg komputera:</string>
-    <string name="avg_speed">Srednia prętkść wg komputera:</string>
+    <string name="avg_speed">Średnia prędkość wg komputera:</string>
     <string name="add">Dodaj</string>
     <string name="petrol_station">Stacja paliw:</string>
     <string name="station">stacja</string>
     <string name="kilometers">Kilometry:</string>
     <string name="combustionPerKilometers">l/100km</string>
     <string name="currency">zł</string>
-
     <string name="add_refuel">Tankowanie zapisane</string>
-
     <string name="double_back_btn">Naciśni powrót jeszcze raz by wyjść</string>
-
-    <string name="title_activity_add">AddActivity</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_test">TestActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
     <string name="date_refueling">Data tankowania:</string>
     <string name="title_activity_single_refuel">SingleRefuleActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_test2">Test2Activity</string>
     <string name="max_combustion">Spalanie maksymalne</string>
-    <string name="title_activity_stats">StatsActivity</string>
+    <string name="invalid_form">Formularz został źle uzupełniony</string>
+    <string name="submitting_form">Zapisywanie ...</string>
+    <string name="required">To pole jest wymagane</string>
+    <string name="title_home">home</string>
 </resources>

@@ -8,17 +8,16 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context="localhost.spalanie.SingleRefuelActivity$PlaceholderFragment">
 
-    <LinearLayout
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-        <LinearLayout
-            android:id="@+id/llDate"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/labelDate"
@@ -26,114 +25,23 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.00"
                 android:text="@string/date_refueling"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvDate"
-                android:layout_width="110dp"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:text="TextView"/>
+                android:text="TextView"
+                android:textAlignment="viewEnd"
+                android:textSize="18sp"/>
+        </TableRow>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llSubBilling"
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/labelSubBilling"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/sub_billing"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tvSubBilling"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:text="TextView"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llLiters"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/labelLiters"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.00"
-                android:text="@string/liters"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tvLiters"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:text="TextView"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llCombustion"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/labelCombustion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/combustion"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tvCombustion"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:text="TextView"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llCombustionPC"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/labelCombustionPC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/combustionPC"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tvCombustionPC"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:text="TextView"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llPrice"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
+            android:paddingTop="@dimen/activity_vertical_margin">
 
             <TextView
                 android:id="@+id/labelPrice"
@@ -141,45 +49,144 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/price"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvPrice"
-                android:layout_width="110dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"/>
+                android:text="TextView"
+                android:textAlignment="viewEnd"
+                android:textSize="18sp"/>
+        </TableRow>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llavgSpeed"
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
+            android:paddingTop="@dimen/activity_vertical_margin">
 
             <TextView
-                android:id="@+id/labelavgSpeed"
+                android:id="@+id/labelSubBilling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sub_billing"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvSubBilling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="viewEnd"
+                android:textSize="18sp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/labelLiters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:text="@string/liters"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvLiters"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="viewEnd"
+                android:textSize="18sp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/labelCombustion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/combustion"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvCombustion"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="viewEnd"
+                android:textSize="18sp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/labelCombustionPC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/combustionPC"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvCombustionPC"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="viewEnd"
+                android:textSize="18sp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/avg_speed"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvavgSpeed"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:text="TextView"/>
+                android:text="TextView"
+                android:textAlignment="viewEnd"
+                android:textSize="18sp"/>
 
-        </LinearLayout>
+        </TableRow>
 
-        <LinearLayout
-            android:id="@+id/llStation"
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
+            android:paddingTop="@dimen/activity_vertical_margin">
 
             <TextView
                 android:id="@+id/labelStation"
@@ -187,16 +194,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/petrol_station"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvStation"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:text="TextView"/>
+                android:text="TextView"
+                android:textAlignment="viewEnd"
+                android:textSize="18sp"/>
 
-        </LinearLayout>
+        </TableRow>
 
-    </LinearLayout>
+    </TableLayout>
 
 </RelativeLayout>

@@ -2,6 +2,8 @@ package localhost.spalanie;
 
 import android.content.Context;
 
+import com.jjoe64.graphview.series.DataPoint;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,6 +16,7 @@ public class Globals {
     // Global variable
     private final List<Refuel> refuels;
     private Context _context;
+    ArrayList<DataPoint> prices, combustion;
 
     private Globals() {
         refuels = new ArrayList<>();
@@ -154,6 +157,19 @@ public class Globals {
         return maxKilometers;
     }
 
+    public int getMaxId() {
+        Integer maxId = 0;
+        if (hasData()) {
+            ArrayList<Integer> idsArrayList = new ArrayList<>();
+            for (Refuel item : refuels
+                    ) {
+                idsArrayList.add(item.getId());
+            }
+            maxId = Collections.max(idsArrayList);
+        }
+        return maxId.intValue();
+    }
+
     public double getMinCombustion() {
         double minCombustion = 0;
         if (hasData()) {
@@ -164,7 +180,7 @@ public class Globals {
                     combustionArrayList.add(item.getCombustion());
                 }
             }
-            minCombustion = Collections.max(combustionArrayList);
+            minCombustion = Collections.min(combustionArrayList);
         }
         return minCombustion;
     }
@@ -186,6 +202,46 @@ public class Globals {
 
     private boolean hasData() {
         return !refuels.isEmpty();
+    }
+
+    private ArrayList<DataPoint> getAllPrices() {
+        int iterator = 0;
+        ArrayList<DataPoint> prices = new ArrayList<>();
+        for (Refuel item : refuels) {
+            DataPoint newest = new DataPoint(iterator, item.getPrice());
+            prices.add(newest);
+            iterator++;
+        }
+
+        return prices;
+    }
+
+    public void setAllPrices() {
+        prices = getAllPrices();
+    }
+
+    public ArrayList<DataPoint> getPrices() {
+        return prices;
+    }
+
+    private ArrayList<DataPoint> getAllCombustion() {
+        int iterator = 0;
+        ArrayList<DataPoint> combustion = new ArrayList<>();
+        for (Refuel item : refuels) {
+            DataPoint newest = new DataPoint(iterator, item.getCombustion());
+            combustion.add(newest);
+            iterator++;
+        }
+
+        return combustion;
+    }
+
+    public void setAllCombustion() {
+        combustion = getAllCombustion();
+    }
+
+    public ArrayList<DataPoint> getCombustion() {
+        return combustion;
     }
     //endregion
 

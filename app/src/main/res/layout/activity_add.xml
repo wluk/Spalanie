@@ -66,6 +66,8 @@
         android:layout_alignStart="@+id/textPrice"
         android:layout_below="@+id/editCombustion"
         android:width="100dp"
+        android:layout_toLeftOf="@+id/editAvgSpeed"
+        android:layout_toStartOf="@+id/editAvgSpeed"
         android:text="@string/avg_speed"/>
 
     <EditText
@@ -84,14 +86,14 @@
         android:id="@+id/editPetrolStation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editAvgSpeed"
-        android:layout_alignStart="@+id/editAvgSpeed"
         android:layout_below="@+id/editAvgSpeed"
         android:width="100dp"
         android:ems="10"
         android:inputType="text"
         android:textSize="14sp"
-        />
+        android:layout_alignEnd="@+id/editAvgSpeed"
+        android:layout_alignRight="@+id/editAvgSpeed"
+        android:layout_toRightOf="@+id/textView8"/>
 
     <EditText
         android:id="@+id/editAvgSpeed"
@@ -151,6 +153,7 @@
         android:layout_alignBaseline="@+id/editPetrolStation"
         android:layout_alignBottom="@+id/editPetrolStation"
         android:layout_alignLeft="@+id/textView12"
-        android:layout_alignStart="@+id/textView12"/>
+        android:layout_alignStart="@+id/textView12"
+        android:layout_marginTop="46dp"/>
 
 </RelativeLayout>

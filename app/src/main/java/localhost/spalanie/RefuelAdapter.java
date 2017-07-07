@@ -34,7 +34,8 @@ class RefuelAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        int refuel_id = mDataSource.get(position).getId();
+        return refuel_id;
     }
 
     @Override
